@@ -13,8 +13,8 @@ onready var ball = get_node("../Ball")
 func _physics_process(delta):
 	
 	direction = Vector2(0, 0)
-	prediction_point = Vector2(position.x, intercept_x_at(position.x, ball.direction, ball.position))
-#	prediction_point = Vector2(position.x, predict(position.x, ball.direction, ball.position))
+#	prediction_point = Vector2(position.x, intercept_x_at(position.x, ball.direction, ball.position))
+	prediction_point = Vector2(position.x, predict(position.x, ball.direction, ball.position))
 	
 	if name == "Left":
 		if ball.direction.x < 0:
@@ -41,14 +41,16 @@ func _physics_process(delta):
 		global_position.y = screen_size.y - shape.y
 	
 func predict(x, dir, pos):
+	# TODO: Replace magic number 8 with proper ball radius
+	var top = 0+8
+	var bottom = screen_size.y-8
 	var y = intercept_x_at(x, dir, pos)
 	
-	if intercept_x_at(x, dir, pos) < 0 + 8:
-		y = predict(x, -dir, Vector2( intercept_y_at(0 + 8, dir, pos), 0 ))
-	elif intercept_x_at(x, dir, pos) > screen_size.y - 8:
-		y = predict(x, -dir, Vector2( intercept_y_at(screen_size.y - 8, dir, pos), 0 ))
-	else:
-		y = intercept_x_at(x, dir, pos)
+	while y < top or y > bottom:
+		if y < top:
+			y = top + (top - y)
+		elif y > bottom:
+			y = top + (bottom - top) - (y - bottom)
 	
 	return y
 
