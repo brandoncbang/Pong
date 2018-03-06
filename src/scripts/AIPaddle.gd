@@ -10,11 +10,15 @@ onready var screen_size = get_viewport().size
 onready var shape = $CollisionShape2D.shape.extents
 onready var ball = get_node("../Ball")
 
+# AI uses the linear formula to project where the ball will be, and moves into position to intercept it.
+# Right now it's flawless, but it will be made easier with certain amounts of error in the calculation.
+# This method is much better than other AI methods I've seen that let the AI cheat.
+
 func _physics_process(delta):
-	
 	direction = Vector2(0, 0)
 	prediction_point = Vector2(position.x, predict(position.x, ball.direction, ball.position))
 	
+	# AI should have the same interactions as the player
 	if name == "Left":
 		if ball.direction.x < 0:
 			target = prediction_point
@@ -45,6 +49,7 @@ func predict(x, dir, pos):
 	var bottom = screen_size.y-8
 	var y = intercept_x_at(x, dir, pos)
 	
+	# Account for ball bounces
 	while y < top or y > bottom:
 		if y < top:
 			y = top + (top - y)

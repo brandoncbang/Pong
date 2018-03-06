@@ -6,11 +6,11 @@ var direction = Vector2(0, 0)
 export(int) var speed_increase = 30
 
 var collision
-
+# Directions the ball can go in from start
+# TODO: Replace this method so the side that got scored on gets to serve next.
 var starting_directions = [ Vector2(1, 1), Vector2(-1, 1), Vector2(-1, -1), Vector2(1, -1) ]
 
 func _physics_process(delta):
-	
 	direction = direction.normalized()
 	collision = move_and_collide(speed * direction * delta)
 	
@@ -36,7 +36,8 @@ func _on_Area2D_area_entered(area):
 	speed += 25
 
 func _ready():
-	
+	# Generate random seed
+	# TODO: Put this in global singleton script.
 	randomize()
 	start()
 	set_physics_process(true)
