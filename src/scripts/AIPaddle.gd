@@ -13,7 +13,6 @@ onready var ball = get_node("../Ball")
 func _physics_process(delta):
 	
 	direction = Vector2(0, 0)
-#	prediction_point = Vector2(position.x, intercept_x_at(position.x, ball.direction, ball.position))
 	prediction_point = Vector2(position.x, predict(position.x, ball.direction, ball.position))
 	
 	if name == "Left":
@@ -57,10 +56,6 @@ func predict(x, dir, pos):
 func intercept_x_at(x, dir, pos):
 	# Find the y coordinate the target will be at x coordinate x using the linear formula y - y1 = m(x - x1)
 	return (dir.y / dir.x) * (x - pos.x) + pos.y
-
-func intercept_y_at(y, dir, pos):
-	# Find the point the ball will be at once its y coordinate is at the paddle using the linear formula y - y1 = m(x - x1)
-	return (y - pos.y) / (dir.y / dir.x) + pos.x
 
 func _ready():
 	set_physics_process(true)
