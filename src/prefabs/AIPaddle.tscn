@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/AIPaddle.gd" type="Script" id=1]
 [ext_resource path="res://sprites/sprite.png" type="Texture" id=2]
@@ -7,6 +7,12 @@
 
 custom_solver_bias = 0.0
 extents = Vector2( 8, 32 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+
+closed = true
+cull_mode = 0
+polygon = PoolVector2Array( -8, -32, 8, -32, 8, 32, -8, 32 )
 
 [node name="AIPaddle" type="Area2D"]
 
@@ -20,6 +26,7 @@ audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]
+speed = 700
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 
@@ -29,8 +36,18 @@ _sections_unfolded = [ "Z Index" ]
 
 [node name="Sprite" type="Sprite" parent="." index="1"]
 
+light_mask = 2
 scale = Vector2( 1, 4 )
+z_index = 10
+z_as_relative = false
 texture = ExtResource( 2 )
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Visibility", "Z Index" ]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="2"]
+
+z_as_relative = false
+occluder = SubResource( 2 )
+light_mask = 1
+_sections_unfolded = [ "Visibility" ]
 
 

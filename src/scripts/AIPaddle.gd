@@ -1,6 +1,6 @@
 extends Area2D
 
-var speed = 500
+export(int) var speed = 500
 var direction = Vector2(0, 0)
 var prediction_point
 onready var base_point = position
@@ -38,15 +38,15 @@ func _physics_process(delta):
 	direction = direction.normalized()
 	translate(speed * direction * delta)
 	
-	if global_position.y < 0 + shape.y:
-		global_position.y = 0 + shape.y
-	if global_position.y > screen_size.y - shape.y:
-		global_position.y = screen_size.y - shape.y
+	if global_position.y < 0 + 32 + shape.y:
+		global_position.y = 0 + 32 + shape.y
+	if global_position.y > screen_size.y - 32 - shape.y:
+		global_position.y = screen_size.y - 32 - shape.y
 	
 func predict(x, dir, pos):
 	# TODO: Replace magic number 8 with proper ball radius
-	var top = 0+8
-	var bottom = screen_size.y-8
+	var top = 0+32+8
+	var bottom = screen_size.y-32-8
 	var y = intercept_x_at(x, dir, pos)
 	
 	# Account for ball bounces
