@@ -6,7 +6,7 @@ var prediction_point
 onready var base_point = position
 var target
 
-onready var screen_size = get_viewport().size
+onready var screen_size = get_viewport_rect().size
 onready var shape = $CollisionShape2D.shape.extents
 onready var ball = get_node("../Ball")
 
@@ -61,6 +61,10 @@ func predict(x, dir, pos):
 func intercept_x_at(x, dir, pos):
 	# Find the y coordinate the target will be at x coordinate x using the linear formula y - y1 = m(x - x1)
 	return (dir.y / dir.x) * (x - pos.x) + pos.y
+
+func _on_AIPaddle_area_entered(area):
+	if area.name == "BallArea":
+		$AnimationPlayer.play("AnimHit")
 
 func _ready():
 	set_physics_process(true)

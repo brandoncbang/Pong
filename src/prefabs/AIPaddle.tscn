@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/AIPaddle.gd" type="Script" id=1]
 [ext_resource path="res://sprites/sprite.png" type="Texture" id=2]
+[ext_resource path="res://prefabs/AnimHit.tres" type="Animation" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -14,7 +15,7 @@ closed = true
 cull_mode = 0
 polygon = PoolVector2Array( -8, -32, 8, -32, 8, 32, -8, 32 )
 
-[node name="AIPaddle" type="Area2D"]
+[node name="AIPaddle" type="Area2D" index="0"]
 
 position = Vector2( 976, 300 )
 input_pickable = false
@@ -43,11 +44,24 @@ z_as_relative = false
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="2"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite" index="0"]
 
+scale = Vector2( 1, 0.25 )
 z_as_relative = false
 occluder = SubResource( 2 )
 light_mask = 1
 _sections_unfolded = [ "Visibility" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/AnimHit = ExtResource( 3 )
+blend_times = [  ]
+
+[connection signal="area_entered" from="." to="." method="_on_AIPaddle_area_entered"]
 
 

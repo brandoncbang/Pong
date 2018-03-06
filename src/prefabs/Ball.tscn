@@ -34,9 +34,8 @@ z_index = 5
 shape = SubResource( 1 )
 _sections_unfolded = [ "Z Index" ]
 
-[node name="Area2D" type="Area2D" parent="." index="1"]
+[node name="BallArea" type="Area2D" parent="." index="1"]
 
-editor/display_folded = true
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -45,7 +44,7 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BallArea" index="0"]
 
 shape = SubResource( 2 )
 
@@ -57,7 +56,7 @@ z_as_relative = false
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Offset", "Visibility", "Z Index" ]
 
-[node name="LightOccluder2D" type="LightOccluder2D" parent="." index="3"]
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite" index="0"]
 
 light_mask = 3
 z_as_relative = false
@@ -65,6 +64,6 @@ occluder = SubResource( 3 )
 light_mask = 3
 _sections_unfolded = [ "Z Index" ]
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="BallArea" to="." method="_on_Area2D_area_entered"]
 
 

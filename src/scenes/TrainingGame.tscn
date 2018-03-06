@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://sprites/sprite.png" type="Texture" id=1]
-[ext_resource path="res://prefabs/Ball.tscn" type="PackedScene" id=2]
-[ext_resource path="res://prefabs/AIPaddle.tscn" type="PackedScene" id=3]
+[ext_resource path="res://sprites/vignette.png" type="Texture" id=2]
+[ext_resource path="res://prefabs/Ball.tscn" type="PackedScene" id=3]
+[ext_resource path="res://prefabs/PlayerPaddle.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -14,7 +15,7 @@ extents = Vector2( 544, 16 )
 custom_solver_bias = 0.0
 extents = Vector2( 16, 268 )
 
-[node name="World" type="Node2D" index="0"]
+[node name="World" type="Node2D"]
 
 _sections_unfolded = [ "Transform" ]
 
@@ -25,7 +26,7 @@ _sections_unfolded = [ "Visibility" ]
 
 [node name="Light2D" type="Light2D" parent="." index="1"]
 
-position = Vector2( 512, 150 )
+position = Vector2( 512, 300 )
 scale = Vector2( 150, 150 )
 enabled = true
 editor_only = false
@@ -48,14 +49,14 @@ shadow_gradient_length = 0.0
 shadow_filter = 0
 shadow_filter_smooth = 0.0
 shadow_item_cull_mask = 1
-_sections_unfolded = [ "Range", "Shadow", "Transform", "Visibility" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Background" type="Sprite" parent="." index="2"]
 
 modulate = Color( 0.356863, 0.431373, 0.882353, 1 )
 position = Vector2( 512, 300 )
-scale = Vector2( 64, 37.5 )
-texture = ExtResource( 1 )
+scale = Vector2( 8, 4.6875 )
+texture = ExtResource( 2 )
 _sections_unfolded = [ "Visibility" ]
 
 [node name="Extents" type="Node" parent="." index="3"]
@@ -110,13 +111,11 @@ position = Vector2( 1008, 300 )
 shape = SubResource( 2 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Ball" parent="." index="4" instance=ExtResource( 2 )]
+[node name="Ball" parent="." index="4" instance=ExtResource( 3 )]
 
 position = Vector2( 512, 300 )
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
-[node name="Left" parent="." index="5" instance=ExtResource( 3 )]
-
-position = Vector2( 48, 300 )
+[node name="Left" parent="." index="5" instance=ExtResource( 4 )]
 
 
