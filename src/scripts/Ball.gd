@@ -5,6 +5,8 @@ var speed = BASE_SPEED
 var direction = Vector2(0, 0)
 export(int) var speed_increase = 30
 
+var score_left = 0
+var score_right = 0
 var last_score = 0
 
 var collision
@@ -20,16 +22,21 @@ func _physics_process(delta):
 	
 	if position.x < -128:
 		last_score = -1
+		score_right += 1
 		start()
 	elif position.x > get_viewport_rect().size.x + 128:
 		last_score = 1
+		score_left += 1
 		start()
+	
+	$"../Control/ScoreLeft".text = str(score_left)
+	$"../Control/ScoreRight".text = str(score_right)
 
 func start():
 	position = get_viewport_rect().size / 2
 	speed = BASE_SPEED
-#	direction = starting_directions[ randi() % len(starting_directions) ]
 	direction.y = starting_directions[ randi() % len(starting_directions) ]
+	
 	if last_score == 0:
 		direction.x = starting_directions[ randi() % len(starting_directions) ]
 	else:
